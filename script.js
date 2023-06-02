@@ -52,6 +52,15 @@
         return {createDom};
     })();
 
+    //-----Controller-----///////////////////////////////////////////////////////////
+    const controller = (() => {
+        const firstTurn = () => {
+            return Math.floor(Math.random() * 2) ? 'player1' : 'player2';
+        }
+
+        return {firstTurn}; //decide first turn, turn tracker, track winner/loser, 
+    })()
+
     //-----Player Factory-----//////////////////////////////////////////////////////
     const playerFactory = (name) => {
         return {name};
@@ -61,5 +70,11 @@
     console.log(player1.name);https://www.apple.com/iphone-14-pro/
     console.log(gameBoard.getBoard());
 
-    displayBoard.createDom();
+    function initilize() {
+        displayBoard.createDom(); //initilize the page
+        controller.firstTurn();
+    }
+
+    initilize();
+
 })();
