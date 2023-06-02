@@ -2,13 +2,13 @@
 (function() { 
     //-----Board Module Pattern-----//////////////////////////////////////////////
     const gameBoard = (() => {
-        let board = [[['1', ''], ['2', ''], ['3', '']], [['4', ''], ['5', ''], ['6', '']], [['7', ''], ['8', ''], ['9', '']]];//main board
+        let board = [[['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']]];//main board
         
         const getBoard = () => {
             return board;
         }
         const resetBoard = () => {
-            board = [[['1', ''], ['2', ''], ['3', '']], [['4', ''], ['5', ''], ['6', '']], [['7', ''], ['8', ''], ['9', '']]];
+            board = [[['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']]];
         }
         const setValue = (i, j, val) => {
             board[i][j] = val;
@@ -19,20 +19,36 @@
     //-----Display Module Pattern-----//////////////////////////////////////////////
     const displayBoard = (() => {
         const createDom = () => {
+            const cellSize = 64;
             const body = document.querySelector('body');
             const board = gameBoard.getBoard();
+            const boardContainer = document.createElement('div');
+            boardContainer.style.width = `${cellSize * 3}`;
+            boardContainer.style.height = `${cellSize * 3}`;
+            boardContainer.style.display = 'grid';
+            boardContainer.style.gridTemplate = '1fr 1fr 1fr / 1fr 1fr 1fr'
+            boardContainer.style.position = 'absolute';
+            body.appendChild(boardContainer);
 
             board.forEach(element => {
                 element.forEach(element => {
                     element[1] = document.createElement('div');    
                     element[1].style.border = '1px solid black';
-                    element[1].style.width = '32px';
-                    element[1].style.height = '32px';
+                    element[1].style.width = `${cellSize}px`;
+                    element[1].style.height = `${cellSize}px`;
+                    element[1].style.textAlign = 'center';
+                    element[1].style.lineHeight = `${cellSize}px`;
                     element[1].textContent = element[0];
 
-                    body.appendChild(element[1]);
+                    element[1].addEventListener('click', event => {
+                        element[0] = 'x';//change the value to current player
+                        element[1].textContent = element[0]; //update cell content
+                        
+                    })
+                    boardContainer.appendChild(element[1]);
             })});
         }
+
         return {createDom};
     })();
 
@@ -40,27 +56,10 @@
     const playerFactory = (name) => {
         return {name};
     }
-    displayBoard.createDom();
+    
     const player1 = playerFactory('Dude');
-    console.log(player1.name);
+    console.log(player1.name);https://www.apple.com/iphone-14-pro/
     console.log(gameBoard.getBoard());
+
+    displayBoard.createDom();
 })();
-
-
-
-
-
-
-
-const arrayBoard = [];
-for (let i = 0; i < 3; i++){
-    arrayBoard[i] = '';
-    for (let j = 0; j < 3; j++) {
-        //create div per array's element
-        arrayBoard[i][j] = '';
-        arrayBoard[i][j] = document.createElement('div');
-    }
-}
-
-
-
