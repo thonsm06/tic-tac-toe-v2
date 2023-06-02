@@ -30,6 +30,9 @@
             boardContainer.style.position = 'absolute';
             body.appendChild(boardContainer);
 
+            let posX = 0;
+            let posY = 0;
+
             board.forEach(element => {
                 element.forEach(element => {
                     element[1] = document.createElement('div');    
@@ -38,15 +41,23 @@
                     element[1].style.height = `${cellSize}px`;
                     element[1].style.textAlign = 'center';
                     element[1].style.lineHeight = `${cellSize}px`;
+                    element[1].dataset.cellX = posX;
+                    element[1].dataset.cellY = posY;
                     element[1].textContent = element[0];
 
                     element[1].addEventListener('click', event => {
                         element[0] = 'x';//change the value to current player
                         element[1].textContent = element[0]; //update cell content
-                        
+                        console.log(event.target);
                     })
+                    if (posX == 2) posX = 0;
+                    else posX++;
+                    
                     boardContainer.appendChild(element[1]);
-            })});
+            })
+            if (posY == 2) posY = 0;
+            else posY++;
+        });
         }
 
         return {createDom};
@@ -55,24 +66,37 @@
     //-----Controller-----///////////////////////////////////////////////////////////
     const controller = (() => {
         const firstTurn = () => {
-            return Math.floor(Math.random() * 2) ? 'player1' : 'player2';
+
+            return Math.floor(Math.random() * 2) ? 'X' : 'O';
         }
 
-        return {firstTurn}; //decide first turn, turn tracker, track winner/loser, 
+        const winner = (symbol) => { //run after every move is input to the board, before next player starts
+            const currentPlayer = symbol;
+            const board = gameBoard.getBoard();
+            //check the entire board, but only one row, column, and diagonal direction at a time
+            //if corner cell
+
+            //if side cell
+
+            //if middle cell
+            if(element[i]) {
+
+            }
+        }
+
+        return {firstTurn, winner}; //decide first turn, turn tracker, track winner/loser, 
     })()
 
     //-----Player Factory-----//////////////////////////////////////////////////////
-    const playerFactory = (name) => {
-        return {name};
+    const playerFactory = (name, symbol) => {
+        return {name, symbol};
     }
-    
-    const player1 = playerFactory('Dude');
-    console.log(player1.name);https://www.apple.com/iphone-14-pro/
-    console.log(gameBoard.getBoard());
 
     function initilize() {
         displayBoard.createDom(); //initilize the page
-        controller.firstTurn();
+        const firstTurn = controller.firstTurn();
+        const player1 = playerFactory('Dude', 'X');
+        const player2 = playerFactory('Computer', 'O');
     }
 
     initilize();
