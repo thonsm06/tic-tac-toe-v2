@@ -2,13 +2,13 @@
 (function() { 
     //-----Board Module Pattern-----//////////////////////////////////////////////
     const gameBoard = (() => {
-        let board = [[['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']]];//main board
+        let board = [['', '', ''], ['', '', ''], ['', '', '']];//main board
         
         const getBoard = () => {
             return board;
         }
         const resetBoard = () => {
-            board = [[['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']], [['', ''], ['', ''], ['', '']]];
+            board = [['', '', ''], ['', '', ''], ['', '', '']];
         }
         const setValue = (i, j, val) => {
             board[i][j] = val;
@@ -35,25 +35,24 @@
 
             board.forEach(element => {
                 element.forEach(element => {
-                    element[1] = document.createElement('div');    
-                    element[1].style.border = '1px solid black';
-                    element[1].style.width = `${cellSize}px`;
-                    element[1].style.height = `${cellSize}px`;
-                    element[1].style.textAlign = 'center';
-                    element[1].style.lineHeight = `${cellSize}px`;
-                    element[1].dataset.cellX = posX;
-                    element[1].dataset.cellY = posY;
-                    element[1].textContent = element[0];
+                    element = document.createElement('div');    
+                    element.style.border = '1px solid black';
+                    element.style.width = `${cellSize}px`;
+                    element.style.height = `${cellSize}px`;
+                    element.style.textAlign = 'center';
+                    element.style.lineHeight = `${cellSize}px`;
+                    element.dataset.cellX = posX;
+                    element.dataset.cellY = posY;
+                    element.textContent = element[0];
 
-                    element[1].addEventListener('click', event => {
-                        element[0] = 'x';//change the value to current player
-                        element[1].textContent = element[0]; //update cell content
+                    element.addEventListener('click', event => {                        
+                        element.textContent = 'X'; //update cell content
                         console.log(event.target);
                     })
                     if (posX == 2) posX = 0;
                     else posX++;
                     
-                    boardContainer.appendChild(element[1]);
+                    boardContainer.appendChild(element);
             })
             if (posY == 2) posY = 0;
             else posY++;
@@ -117,9 +116,9 @@
             const len = templateArray.length;
             
             for(let i = 0; i < len; i++) {
-                cell1 = board[templateArray[i][0]][templateArray[i][1]][1].textContent;
-                cell2 = board[templateArray[i][2]][templateArray[i][3]][1].textContent;
-                cell3 = board[templateArray[i][4]][templateArray[i][5]][1].textContent;
+                cell1 = board[templateArray[i][0]][templateArray[i][1]].textContent;
+                cell2 = board[templateArray[i][2]][templateArray[i][3]].textContent;
+                cell3 = board[templateArray[i][4]][templateArray[i][5]].textContent;
 
                 if (cell1 === cell2 && cell1 === cell3) {
                     //all match
@@ -129,27 +128,7 @@
             }
             //if no match after checking all lines template
             //next player
-            
-            function lineToCheck(x1, y1, x2, y2, x3, y3) {
-                //get textcontent of the three cell
-                cell1 = element[1].textContent;
-                cell2 = element[1].textContent;
-                cell3 = element[1].textContent;
-                if (cell1 == cell2 && cell1 == cell3){
-                    return true;
-                }
-                return false;
-            }
-            if (symbol1 == symbol2) {
-
-            }
-
-
-            for(let i = 0; i < 3; i++) {
-                for(let j = 0; j < 3; j++) {
-
-                }
-            }
+        
         }
 
         return {firstTurn, winner}; //decide first turn, turn tracker, track winner/loser, 
