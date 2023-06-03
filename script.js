@@ -109,27 +109,26 @@
 
             //Pick one after an input is made
             function choosentemplate() {
-                const templateArray = [];
+                const templateArray = []; //will equal to one of nine template
                 return templateArray;
             }
 
 
             const len = templateArray.length;
-            const coords = [];
             
             for(let i = 0; i < len; i++) {
-                for(let j = 0; j < 6; j++) {
-                    coords.push(templateArray[i][j]);
-/*                     x1 = templateArray[i][0];
-                    y1 = templateArray[i][1];
-                    x2 = templateArray[i][2];
-                    y2 = templateArray[i][3];
-                    x3 = templateArray[i][4];
-                    y3 = templateArray[i][5]; */
-                    board
-                }
+                cell1 = board[templateArray[i][0]][templateArray[i][1]][1].textContent;
+                cell2 = board[templateArray[i][2]][templateArray[i][3]][1].textContent;
+                cell3 = board[templateArray[i][4]][templateArray[i][5]][1].textContent;
 
+                if (cell1 === cell2 && cell1 === cell3) {
+                    //all match
+                    //winner found
+                    break;
+                }
             }
+            //if no match after checking all lines template
+            //next player
             
             function lineToCheck(x1, y1, x2, y2, x3, y3) {
                 //get textcontent of the three cell
